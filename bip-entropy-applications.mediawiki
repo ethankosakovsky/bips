@@ -1,0 +1,144 @@
+<pre>
+  BIP: XXXX
+  Layer: Applications
+  Title: Multi-Application Hierarchy for Deterministic Entropy
+  Author: Ethan Kosakovsky <ethankosakovsky@protonmail.com>
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-XXXX
+  Status: Proposed
+  Type: Standards Track
+  Created: 2020-03-20
+  License: BSD-2-Clause
+           OPL
+</pre>
+
+==Abstract==
+
+This BIP provides standardized path for different applications of BIP-entropy
+
+==Applications==
+
+Application number define how entropy will be used post processing. Some basic examples follow:
+
+Derivation path uses the format <code>m/83696968/' + /app_no' + /index'</code> where ''app_no'' path for the application, and `index` in the index.
+
+===BIP39===
+Application number: 39'
+
+Entropy is truncated to the number of bits required to map to the relevant word length 128 bits for 12 words, 256 bits for 24 words.
+
+The derivation path format is: <code>m/83696968'/39' + /language' + /words' + /index'</code>
+
+Example a BIP39 mnemonic with 12 English words (first index) would have the path <code>m/83696968'/39'/0'/12'/0'</code> the next key would be <code>m/83696968'/39'/0'/12'/1'</code> etc.
+
+Language Table
+
+{|
+!Wordlist
+!Code
+|-
+| English
+| 0'
+|-
+| Japanese
+| 1'
+|-
+| Korean
+| 2'
+|-
+| Spanish
+| 3'
+|-
+| Chinese (Simplified)
+| 4'
+|-
+| Chinese (Traditional)
+| 5'
+|-
+| French
+| 6'
+|-
+| Italian
+| 7'
+|-
+| Czech
+| 8'
+|}
+
+Words Table
+
+{|
+!Words
+!Entropy
+!Code
+|-
+| 12 words
+| 128 bits
+| 12'
+|-
+| 18 words
+| 192 bits
+| 18'
+|-
+| 24 words
+| 256 bits
+| 24'
+|}
+
+====12 English words====
+BIP39 English 12 word mnemonic seed
+
+128 bits of entropy as input to BIP39 to derive 12 word mnemonic
+
+INPUT:
+* MASTER BIP32 ROOT KEY: xprv9s21ZrQH143K2LBWUUQRFXhucrQqBpKdRRxNVq2zBqsx8HVqFk2uYo8kmbaLLHRdqtQpUm98uKfu3vca1LqdGhUtyoFnCNkfmXRyPXLjbKb
+* PATH: m/83696968'/39'/0'/12'/0'
+
+OUTPUT:
+* DERIVED ENTROPY=6250b68daf746d12a24d58b4787a714b
+* DERIVED BIP39 MNEMONIC=girl mad pet galaxy egg matter matrix prison refuse sense ordinary nose
+
+====18 English words====
+BIP39 English 18 word mnemonic seed
+
+196 bits of entropy as input to BIP39 to derive 18 word mnemonic
+
+INPUT:
+* MASTER BIP32 ROOT KEY: xprv9s21ZrQH143K2LBWUUQRFXhucrQqBpKdRRxNVq2zBqsx8HVqFk2uYo8kmbaLLHRdqtQpUm98uKfu3vca1LqdGhUtyoFnCNkfmXRyPXLjbKb
+* PATH: m/83696968'/39'/0'/18'/0'
+
+OUTPUT:
+* DERIVED ENTROPY=938033ed8b12698449d4bbca3c853c66b293ea1b1ce9d9dc
+* DERIVED BIP39 MNEMONIC=near account window bike charge season chef number sketch tomorrow excuse sniff circle vital hockey outdoor supply token
+
+====24 English words====
+Derives 24 word BIP39 mnemonic seed
+
+256 bits of entropy as input to BIP39 to derive 24 word mnemonic
+
+INPUT:
+* MASTER BIP32 ROOT KEY: xprv9s21ZrQH143K2LBWUUQRFXhucrQqBpKdRRxNVq2zBqsx8HVqFk2uYo8kmbaLLHRdqtQpUm98uKfu3vca1LqdGhUtyoFnCNkfmXRyPXLjbKb
+* PATH: m/83696968'/39'/0'/24'/0'
+
+OUTPUT:
+* DERIVED ENTROPY=ae131e2312cdc61331542efe0d1077bac5ea803adf24b313a4f0e48e9c51f37f
+* DERIVED BIP39 MNEMONIC=puppy ocean match cereal symbol another shed magic wrap hammer bulb intact gadget divorce twin tonight reason outdoor destroy simple truth cigar social volcano
+
+===Bitcoin Core HDSEED===
+Application number: 2'
+
+Uses 256 bits of entropy as the secret exponent to derive a private key and encode as a compressed WIF which will be used as the hdseed for Bitcoin Core wallets.
+
+Path format is <code>m/83696968'/2'/ + /index'</code>
+
+INPUT:
+* MASTER BIP32 ROOT KEY: xprv9s21ZrQH143K2LBWUUQRFXhucrQqBpKdRRxNVq2zBqsx8HVqFk2uYo8kmbaLLHRdqtQpUm98uKfu3vca1LqdGhUtyoFnCNkfmXRyPXLjbKb
+* PATH: m/83696968'/2'/0'
+
+OUTPUT
+* DERIVED ENTROPY=d248faa1bcf373e0aa5f919e4edae6c52ebca2338448b18b68c27064b135fe35
+* DERIVED WIF=L4GUerbexd7nccbJnYUU1JAQvDwQfFjbLzUr4vqSxEJZKAqpvTn4
+
+==Copyright==
+
+This BIP is dual-licensed under the Open Publication License and BSD 2-clause license.
