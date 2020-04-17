@@ -139,6 +139,10 @@ OUTPUT
 * DERIVED ENTROPY=d248faa1bcf373e0aa5f919e4edae6c52ebca2338448b18b68c27064b135fe35
 * DERIVED WIF=L4GUerbexd7nccbJnYUU1JAQvDwQfFjbLzUr4vqSxEJZKAqpvTn4
 
+==Reference Implementation==
+
+Python implementation: [https://github.com/ethankosakovsky/bipentropy python-bipentropy]
+
 ==Copyright==
 
 This BIP is dual-licensed under the Open Publication License and BSD 2-clause license.
